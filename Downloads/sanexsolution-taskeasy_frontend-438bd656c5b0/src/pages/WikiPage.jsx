@@ -51,8 +51,6 @@ export default function WikiPage() {
   const [newPageTitle, setNewPageTitle] = useState('');
   const [isSaving, setIsSaving] = useState(false);
   const [token, setToken] = useState(null);
-  const [projects, setProjects] = useState([]);
-  const [selectedProject, setSelectedProject] = useState(projectId);
 
   // Editor setup
   const editor = useEditor({
@@ -120,36 +118,14 @@ export default function WikiPage() {
     }
   }, [navigate]);
 
-  // Fetch projects for selector
-  useEffect(() => {
-    if (!isAuthenticated || !token) return;
-
-    const fetchProjects = async () => {
-      try {
-        const res = await axios.get('http://localhost:5000/api/projects', {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const list = res.data?.projects || res.data || [];
-        setProjects(list);
-        if (!selectedProject && list.length) {
-          const firstId = list[0]._id || list[0].id;
-          setSelectedProject(firstId);
-        }
-      } catch (err) {
-        console.error('Failed to fetch projects', err?.response?.data || err.message || err);
-      }
-    };
-    fetchProjects();
-  }, [isAuthenticated, token]);
-
   // Fetch wiki pages
   useEffect(() => {
-    if (!isAuthenticated || !selectedProject) return;
+    if (!isAuthenticated || !projectId) return;
 
     const fetchPages = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`http://localhost:5000/api/wiki?projectId=${selectedProject}`);
+        const res = await axios.get(`http://localhost:5000/api/wiki?projectId=${projectId}`);
         const list = res.data?.pages || [];
         setPages(list);
         if (list.length) setSelectedPage(list[0]);
@@ -161,7 +137,7 @@ export default function WikiPage() {
       }
     };
     fetchPages();
-  }, [selectedProject, isAuthenticated]);
+  }, [projectId, isAuthenticated]);
 
   // Save new wiki page
   const handleSaveNewPage = async () => {
@@ -181,7 +157,7 @@ export default function WikiPage() {
       const response = await axios.post('http://localhost:5000/api/wiki', {
         filename: newPageTitle.replace(/\s+/g, '-'),
         filepath: `/uploads/${newPageTitle.replace(/\s+/g, '-')}.html`,
-        projectid: selectedProject,
+        projectid: projectId,
         userid: userId,
         title: newPageTitle,
         content: htmlContent,
@@ -195,7 +171,7 @@ export default function WikiPage() {
       setIsCreatingNew(false);
 
       // Refresh pages list
-      const res = await axios.get(`http://localhost:5000/api/wiki?projectId=${selectedProject}`);
+      const res = await axios.get(`http://localhost:5000/api/wiki?projectId=${projectId}`);
       const list = res.data?.pages || [];
       setPages(list);
       if (list.length) setSelectedPage(list[list.length - 1]);
@@ -341,28 +317,7 @@ export default function WikiPage() {
                 <div className="bg-white dark:bg-neutral-900 rounded-lg p-6 border border-neutral-100 dark:border-neutral-900/50">
                   <h2 className="text-2xl font-bold text-neutral-900 dark:text-neutral-50 mb-4">Create New Wiki Page</h2>
                   
-                  {/* Project Selector */}
-                  <div className="mb-4 flex items-center gap-3">
-                    <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Project:</label>
-                    <select
-                      value={selectedProject || ''}
-                      onChange={(e) => setSelectedProject(e.target.value)}
-                      className="px-3 py-2 border border-neutral-200 dark:border-neutral-700 rounded-lg text-neutral-900 dark:text-neutral-50 bg-white dark:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    >
-                      <option value="">-- Select project --</option>
-                      {projects.map((p) => (
-                        <option key={p._id || p.id} value={p._id || p.id}>
-                          {p.title || p.name || (p._id || p.id)}
-                        </option>
-                      ))}
-                    </select>
-                    {selectedProject && (
-                      <div className="text-sm text-neutral-500 dark:text-neutral-400">
-                        Selected: {projects.find(x => (x._id || x.id) === selectedProject)?.title || selectedProject}
-                      </div>
-                    )}
-                  </div>
-                  
+
                   <input
                     type="text"
                     placeholder="Enter page title..."
