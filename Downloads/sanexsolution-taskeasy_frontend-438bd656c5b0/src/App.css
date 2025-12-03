@@ -100,3 +100,17 @@ body{
   border-radius:9999px;
   background:linear-gradient(135deg,#f59e0b,#f97316);
 }
+/* optional - keep small reset + allow Tailwind CDN to work */
+@layer base {
+  html, body, #root {
+    height: 100%;
+  }
+  body {
+    margin: 0;
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  }
+}
+
+/* small helpers used by original HTML (size-10 etc) */
+.size-6 { width: 1.5rem; height: 1.5rem; }
+.size-10 { width: 2.5rem; height: 2.5rem; }

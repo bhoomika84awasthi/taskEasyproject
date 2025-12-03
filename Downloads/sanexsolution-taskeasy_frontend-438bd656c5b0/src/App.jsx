@@ -23,6 +23,11 @@ import Sprint from "./pages/Sprint";
 import Workitem from "./pages/Workitem";
 import Taskbar from "./pages/taskbar";
 import Taskboard from "./components/project/boardSubitem/Sprint";
+import Queries from "./pages/queries";
+import QueryBoard from "./pages/board_queries";
+import Timelog from "./pages/timelogsummary";
+import Delivery from "./pages/deliverypage";
+import Pipelines from "./pages/pipelines";
 
 
 
@@ -55,7 +60,11 @@ function App() {
           <Route path="/Workitem" element={<Workitem />} />
           <Route path="/taskbar" element={<Taskbar />} />
           <Route path="/Taskboard" element={<Taskboard />} />
-
+          <Route path="/queries" element={<Queries />} />
+          <Route path="/queryboard" element={<QueryBoard />} />
+          <Route path="/timelogsummary" element={<Timelog />} />
+          <Route path="/deliverypage" element={<Delivery />} />
+          <Route path="/pipelines" element={<Pipelines />} />
 
 
 

@@ -88,20 +88,20 @@ export default function TaskEasyBacklogsExact() {
                 <span>Sprints</span>
               </Link>
 
-              <div className="flex items-center gap-3 px-2 py-2 rounded hover:bg-gray-50">
+              <Link to="/queries" className="flex items-center gap-3 px-2 py-2 rounded hover:bg-gray-50">
                 <span className="material-symbols-outlined">manage_search</span>
                 <span>Queries</span>
-              </div>
+              </Link>
 
-              <div className="flex items-center gap-3 px-2 py-2 rounded hover:bg-gray-50">
+              <Link to="/deliverypage" className="flex items-center gap-3 px-2 py-2 rounded hover:bg-gray-50">
                 <span className="material-symbols-outlined">local_shipping</span>
                 <span>Delivery Plans</span>
-              </div>
+              </Link>
 
-              <div className="flex items-center gap-3 px-2 py-2 rounded hover:bg-gray-50">
+              <Link to="/timelogsummary" className="flex items-center gap-3 px-2 py-2 rounded hover:bg-gray-50">
                 <span className="material-symbols-outlined">schedule</span>
                 <span>Time Log Summary</span>
-              </div>
+              </Link>
             </div>
 
             <div className="mt-6 space-y-1">

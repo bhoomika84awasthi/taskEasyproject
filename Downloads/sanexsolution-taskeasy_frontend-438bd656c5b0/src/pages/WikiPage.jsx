@@ -51,6 +51,8 @@ export default function WikiPage() {
   const [newPageTitle, setNewPageTitle] = useState('');
   const [isSaving, setIsSaving] = useState(false);
   const [token, setToken] = useState(null);
+  const [projects, setProjects] = useState([]);
+  const [selectedProject, setSelectedProject] = useState(projectId);
 
   // Editor setup
   const editor = useEditor({
@@ -267,6 +269,15 @@ export default function WikiPage() {
                   <span className="material-symbols-outlined text-neutral-600 dark:text-neutral-100/70" style={{fontSize:20}}>view_kanban</span>
                   <p className="text-neutral-900 dark:text-neutral-50 text-sm font-medium">Boards</p>
                 </a>
+                <Link to="/pipelines" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-[#f0f2f4]" href="#">
+                                  <span className="material-symbols-outlined text-xl">account_tree</span>
+                                  <p className="text-sm font-medium">Pipelines</p>
+                                </Link>
+                                <a className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-[#f0f2f4]" href="#">
+                                  <span className="material-symbols-outlined text-xl">inventory_2</span>
+                                  <p className="text-sm font-medium">Artifacts</p>
+                                </a>
+                
               </div>
             </div>
           </aside>

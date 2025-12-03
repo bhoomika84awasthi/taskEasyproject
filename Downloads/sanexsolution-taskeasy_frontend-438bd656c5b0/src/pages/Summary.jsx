@@ -160,11 +160,10 @@ export default function Summary() {
                   <p className="text-sm font-medium">Boards</p>
                 </Link>
 
-                <a className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-[#f0f2f4]" href="#">
+                <Link to="/pipelines" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-[#f0f2f4]" href="#">
                   <span className="material-symbols-outlined text-xl">account_tree</span>
                   <p className="text-sm font-medium">Pipelines</p>
-                </a>
-
+                </Link>
                 <a className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-[#f0f2f4]" href="#">
                   <span className="material-symbols-outlined text-xl">inventory_2</span>
                   <p className="text-sm font-medium">Artifacts</p>
